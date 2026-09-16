@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,12 +11,25 @@ from scripts.fetch_wikisource import (
     api_json,
     fetch_book,
     fetch_github_mirror,
+    fetch_pages_batch,
+    order_wikisource_pages,
     sha256_text,
     wikisource_page_key,
 )
 
 
 class FetchWikisourceTests(unittest.TestCase):
+    def test_cli_accepts_a_custom_title(self):
+        completed = subprocess.run(
+            [sys.executable, "scripts/fetch_wikisource.py", "--help"],
+            check=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        self.assertIn("--title", completed.stdout)
+
     def test_sha256_is_stable(self):
         self.assertEqual(
             sha256_text("abc"),
@@ -86,6 +101,54 @@ class FetchWikisourceTests(unittest.TestCase):
             ],
         )
 
+    def test_zhouyi_pages_use_king_wen_order_then_appendices(self):
+        pages = [
+            "周易/雜卦",
+            "周易/未濟",
+            "周易/乾",
+            "周易/坤",
+            "周易/繫辭上",
+            "周易/屯",
+        ]
+
+        self.assertEqual(
+            order_wikisource_pages("周易", pages),
+            [
+                "周易",
+                "周易/乾",
+                "周易/坤",
+                "周易/屯",
+                "周易/未濟",
+                "周易/繫辭上",
+                "周易/雜卦",
+            ],
+        )
+
+    def test_zhouyi_zhengyi_pages_use_volume_and_hexagram_order(self):
+        pages = [
+            "周易正義/10",
+            "周易正義/02否",
+            "周易正義/01蒙",
+            "周易正義/07.10",
+            "周易正義/02泰",
+            "周易正義/01乾",
+            "周易正義/07.02",
+        ]
+
+        self.assertEqual(
+            order_wikisource_pages("周易正義", pages),
+            [
+                "周易正義",
+                "周易正義/01乾",
+                "周易正義/01蒙",
+                "周易正義/02泰",
+                "周易正義/02否",
+                "周易正義/07.02",
+                "周易正義/07.10",
+                "周易正義/10",
+            ],
+        )
+
     @patch("scripts.fetch_wikisource.api_json")
     def test_fetch_book_succeeds_when_allpages_is_empty(self, api_json):
         api_json.side_effect = [
@@ -100,6 +163,53 @@ class FetchWikisourceTests(unittest.TestCase):
             self.assertEqual(manifest["page_count"], 1)
             self.assertEqual(manifest["pages"], ["增刪卜易"])
             self.assertEqual(manifest["sha256"], sha256_text(text))
+
+    @patch("scripts.fetch_wikisource.fetch_page_wikitext")
+    @patch("scripts.fetch_wikisource.api_json")
+    def test_parallel_fetch_preserves_page_order(self, api_json, fetch_page):
+        api_json.return_value = {
+            "query": {"allpages": [{"title": "示例/2"}, {"title": "示例/1"}]}
+        }
+        fetch_page.side_effect = lambda _api, page: f"\n===== {page} =====\n{page}\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest = fetch_book(
+                "https://example.invalid/w/api.php",
+                "示例",
+                Path(tmp),
+                workers=2,
+            )
+            text = (Path(tmp) / "raw-wikitext.txt").read_text(encoding="utf-8")
+
+            self.assertLess(text.index("===== 示例 ====="), text.index("===== 示例/1 ====="))
+            self.assertLess(text.index("===== 示例/1 ====="), text.index("===== 示例/2 ====="))
+            self.assertEqual(manifest["pages"], ["示例", "示例/1", "示例/2"])
+
+    @patch("scripts.fetch_wikisource.api_json")
+    def test_batch_fetch_resolves_redirect_and_preserves_requested_heading(self, api_json):
+        api_json.return_value = {
+            "query": {
+                "redirects": [{"from": "周易", "to": "易經"}],
+                "pages": [
+                    {
+                        "title": "易經",
+                        "revisions": [{"slots": {"main": {"content": "CORE"}}}],
+                    },
+                    {
+                        "title": "周易/乾",
+                        "revisions": [{"slots": {"main": {"content": "QIAN"}}}],
+                    },
+                ],
+            }
+        }
+
+        sections = fetch_pages_batch(
+            "https://example.invalid/w/api.php",
+            ["周易", "周易/乾"],
+            batch_size=20,
+        )
+
+        self.assertEqual(sections[0], "\n===== 周易 =====\nCORE\n")
+        self.assertEqual(sections[1], "\n===== 周易/乾 =====\nQIAN\n")
 
     @patch("scripts.fetch_wikisource.urllib.request.urlopen")
     def test_github_fallback_records_mirror_and_limitation(self, urlopen):

@@ -1,0 +1,36 @@
+{
+  "package": "zhouyi-classics",
+  "retrieved_at_utc": "2026-09-16",
+  "sources": [
+    {
+      "title": "周易",
+      "role": "经传底本",
+      "source_url": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93",
+      "local_file": "zhouyi/raw-wikitext.txt",
+      "page_count": 74,
+      "order_strategy": "king-wen-64-then-appendices",
+      "sha256": "da52c7fd9308122d153a3d4823034b0013cbf90b0cf1bc8a1694a83361d085c3"
+    },
+    {
+      "title": "周易正義",
+      "role": "王弼、韩康伯注与孔颖达疏的解释层",
+      "source_url": "https://zh.wikisource.org/wiki/%E5%91%A8%E6%98%93%E6%AD%A3%E7%BE%A9",
+      "local_file": "zhouyi-zhengyi/raw-wikitext.txt",
+      "page_count": 100,
+      "order_strategy": "volume-then-king-wen-or-section-order",
+      "sha256": "a3b125ba3cb90f1f14e7c275b6dbb67c5a384328ebc254e016f5b4613472435d"
+    }
+  ],
+  "cross_check": {
+    "title": "中国哲学书电子化计划《周易》",
+    "url": "https://ctext.org/book-of-changes/ens",
+    "copied_into_repository": false,
+    "purpose": "章节、卦序与异文交叉核对；不作为本项目转载正文"
+  },
+  "known_issues": [
+    "中文维基文库《周易》总页标记 Textquality 50%，不是校勘定本。",
+    "《周易》聚合页中的《小象》页面存在可见录入错误；引用时优先核对单卦页与《周易正义》。",
+    "《周易正义》来源同时收录 周易正義/02隨 与 周易正義/03隨；总目录指向 03隨，二者按重复/异文处理，不重复计为两卦。",
+    "来源页的传统作者归属属于版本说明，不代表现代学术界已经确认全书由单一作者写成。"
+  ]
+}
