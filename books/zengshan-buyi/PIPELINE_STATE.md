@@ -2,9 +2,9 @@
 
 ## 当前状态
 
-- **当前阶段**：Stage 1.5 — 三重验证（已完成）
-- **执行状态**：**Stage 0 已获确认；Stage 1 提取完成；Stage 1.5 最终审计完成，等待用户轻确认**
-- **阶段门**：**禁止进入 Stage 1.6**。必须先向用户展示四类数量、10 个 verified canonical 与重要缺口，并取得明确轻确认；确认不能替代来源验证。
+- **当前阶段**：Stage 5 — 编译策略轻确认
+- **执行状态**：**Stage 1.6–4 已完成；DIGEST 已生成；auto 编译预览推荐 pack，等待用户确认后编译安装**
+- **阶段门**：未取得“按推荐 / single / pack”轻确认前，不执行最终编译与安装。
 - **最近更新**：2026-09-16（Australia/Sydney）
 
 ## Stage 0 输入与校验
@@ -54,9 +54,10 @@
 
 ## 下一步门禁
 
-- 允许：展示 Stage 1.5 审计结果、回答用户对范围与分流的疑问、根据新底本修订本阶段审计。
-- 禁止：在用户轻确认前启动 Stage 1.6、创建 active 能力卡、Capability Bundle、`destinations.json` 或编译书本 companion skill。
-- 下一解锁条件：用户明确确认当前 `verified / reference / needs_review / rejected` 范围后，才可读取 Stage 1.6 晋级门说明并继续。
+- 用户于 2026-09-16 17:47:00 +10:00 回复“继续”，确认 Stage 1.5 的四类分流并允许进入下一阶段。
+- 允许：构造 Capability Bundle、能力卡、术语与参考资源，完成压力测试并生成编译预览。
+- 禁止：把 reference/needs-review 升为 active；把内部历史规则描述成科学预测；在编译策略轻确认前安装书本 companion Skill。
+- 下一解锁条件：Stage 2–4 全部通过后运行自动编译预览，向用户展示 `single/pack` 推荐再安装。
 
 ## Stage 1 候选产出
 
@@ -92,3 +93,27 @@
 3. 原书复占“明/恍惚”、最大次数、合断与停止条件不可检验。
 4. 规则权重、同强冲突和多候选应期排序/失败定义缺失。
 5. 当前镜像 Textquality 低，纳甲等处有疑似异文；未取得影印/校勘本。
+
+## Stage 1.6 晋级门结论
+
+- 评审文件：`promotion-gate.md`
+- 10 个 verified canonical 全部保留为来源路由入口 `zengshan-buyi` 的内部能力卡；没有拆出新的独立 Skill。
+- 原因：这些单元主要是同一条六爻解释链的内部步骤、来源审计或安全门，用户通常以“六爻占问/《增删卜易》解释”进入；拆分会与已安装的 `traditional-divination-skill` 抢触发。
+- 可发现入口预算：实际 1 / 软预算 8；没有能力失联。
+
+## Stage 2–4 完成情况
+
+- Capability Bundle：`.cangjie/capabilities/verified.yaml`，10 个 active router 能力。
+- RIA++ 卡片：`.cangjie/capabilities/cards/` 共 10 张，均含 R/I/A1/A2/E/B。
+- Zettelkasten：`also_read` 与卡片关系已回填；23 个术语已生成 `GLOSSARY.md` 和随包副本。
+- Stage 4 独立盲测：三个干净子代理处理 24 个路由用例和 20 个实际输出用例。
+- 最终路由：precision 1.000、recall 1.000、F1 1.000；兄弟混淆 0/2。
+- 实际输出：20/20 完成，20/20 用例的全部机械断言通过。
+- 测试修订：初始 edge taxonomy 与标点敏感断言的修订理由已记录，未修改盲测输出。
+
+## Stage 5 编译预览
+
+- `DIGEST.md`：5,423 字符，覆盖核心方法、反例、材料局限与全部能力链接。
+- auto purpose=`workflow` 推荐 `pack`。
+- 推荐产物：1 个来源路由入口 + 0 个晋级 Skill，共 1 个可发现入口；备选 `single` 同为 1 个入口并携带 10 张内部能力卡。
+- 等待用户回答“按推荐”“改成 single”或“改成 pack”。

@@ -1,0 +1,255 @@
+schema_version: 1
+bundle_id: bundle.zengshan-buyi
+book:
+  title: 《增刪卜易》
+  author: 野鶴老人原著；李文輝增刪；李我平評議；当前镜像含现代录入增补
+  source_pack: books/zengshan-buyi
+  baseline_tag: wikisource-20260916-sha256-377f1f42
+entry:
+  name: zengshan-buyi
+  description: >-
+    当用户明确要求依据《增删卜易》学习、核对或解释六爻，或需要审计该书的规则、案例、术语与来源层时调用。
+    可整理占问、复核六次投掷编码、建立历史系统内部的证据账本；不把术数包装成科学预测，也不替代医疗、法律、财务或安全专业意见。
+    Triggers: 增删卜易/Zengshan Buyi/六爻古籍/用神/元神忌神/应期研究/规则校勘。
+  core_principles:
+    - 先固定一事一问、对象、范围与时间，不允许事后换题。
+    - 每条规则保留来源层、原文位置和不确定性，现代增补不得冒充古籍主体。
+    - 计算与查表只执行已验证的有限集合，遇到缺字段或异文立即停止补猜。
+    - 支持、反对、无效和缺失证据分栏记录；冲突未决时不伪造唯一结论。
+    - 案例只作历史例示与测试，不以精选命中证明现实预测效力。
+    - 高风险现实请求先停止占断并转向合格专业渠道。
+  out_of_scope:
+    - 将六爻解释宣称为科学预测、确定事实或现实概率
+    - 医疗诊断和处方、法律结论、投资交易建议、生育与胎儿性别、死亡犯罪和灾害判断
+    - 未经校勘的完整纳甲排盘、用神两现或不现的唯一裁决、应期必中日期
+  stop_conditions:
+    - 问题混合多个独立结果、主体不清或时间范围缺失时，先澄清或拆题。
+    - 输入不足以运行所选能力，或落入 needs-review 缺口时，标记未知并停止推演。
+    - 涉及高风险现实行动时，停止术数结论并提供专业转交方向。
+router_entry:
+  name: zengshan-buyi
+  description: >-
+    当用户点名《增删卜易》、野鹤老人、六爻古籍规则，或希望依据该书解释起卦、用神关系、作用账本、规则冲突、应期候选与历史案例时调用。
+    本入口服务全部十张内部能力卡；普通“给我算一卦”优先由 traditional-divination-skill 处理，需要本书来源审计时再路由到这里。
+    不用于医疗、法律、财务、生育、死亡或安全结论。
+promotion_budget: 8
+capabilities:
+  - capability_id: cap.zengshan-buyi.provenance-audit
+    revision: 1
+    status: active
+    slug: provenance-audit
+    title: 来源分层与归属审计
+    importance: high
+    importance_rationale: 命中 ZSBY-T02/T09；错误归属会污染全部下游规则与引用。
+    one_liner: 先按显式署名和页面边界分层，证据不足就标 unknown，不猜作者。
+    intents: [核对一段《增删卜易》文字属于谁, 区分古籍主体与现代增补]
+    keywords: [来源分层, 归属, provenance, attribution, 原剑按]
+    also_read: [rule-audit]
+    card: cards/provenance-audit.md
+    frontmatter:
+      description: >-
+        当用户问《增删卜易》某段是谁写的、是不是古法，或要区分野鹤/觉子/李我平/现代录入层时使用。缺乏显式证据则输出 unknown；不用于一般起卦或断卦。Triggers: 来源/作者/版本/古法/provenance/attribution。
+      tags: [provenance, source-criticism]
+    source_evidence:
+      - source_id: ZSBY-VC-01
+        version_id: wikisource-20260916
+        location: raw L21-L124, L4602, L5097, L5199, L5331
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 来源型任务由书本 router 服务。 }
+
+  - capability_id: cap.zengshan-buyi.question-contract
+    revision: 1
+    status: active
+    slug: question-contract
+    title: 一事一问的问题合同与分占
+    importance: critical
+    importance_rationale: 命中 ZSBY-T01/T03/T07/T08；是所有占问的前置输入门，遗漏会导致主体与目标漂移。
+    one_liner: 每次只固定一个对象、一个结果变量和一个时间范围，多目标必须拆开。
+    intents: [把混合占问拆成可处理的问题, 固定代占对象与目标范围]
+    keywords: [一事一问, 分占, 问题合同, one-question, scope]
+    also_read: [domain-router, high-risk-stop]
+    card: cards/question-contract.md
+    frontmatter:
+      description: >-
+        当六爻问题同时包含感情、工作、钱或多人事项，或发问者与实际对象不一致时使用；把请求拆成一事一问合同。普通单一清晰问题无需单独触发。Triggers: 一起问/顺便问/替某人问/到底问什么/scope。
+      tags: [question-framing, routing]
+    source_evidence:
+      - source_id: ZSBY-VC-02
+        version_id: wikisource-20260916
+        location: raw L1465-L1547, L2075-L2078, L3635-L3637
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 主占问入口的前置步骤。 }
+
+  - capability_id: cap.zengshan-buyi.line-encoding
+    revision: 1
+    status: active
+    slug: line-encoding
+    title: 六次投掷与动变编码
+    importance: critical
+    importance_rationale: 命中 ZSBY-T02/T09；确定本卦、动爻和变卦，是可机器核对的基础计算。
+    one_liner: 六次输入自下而上编号，只翻转老阴老阳形成变卦，缺项直接报错。
+    intents: [把六次投币结果换成本卦动爻变卦, 核对爻位上下顺序]
+    keywords: [投币, 起卦, 动爻, 变卦, line encoding, moving lines]
+    also_read: [lookup-transform]
+    card: cards/line-encoding.md
+    frontmatter:
+      description: >-
+        当用户提供六次硬币结果、6/7/8/9 或单拆重交，要求核对本卦、动爻和变卦时使用。只负责编码，不补做完整纳甲或现实吉凶判断。Triggers: 六次投币/6 7 8 9/动爻/变卦/cast coins。
+      tags: [casting, calculation]
+    source_evidence:
+      - source_id: ZSBY-VC-03
+        version_id: wikisource-20260916
+        location: modern editorial layer, raw L4602-L4692
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 基础 Skill 已承担起卦入口，本包保留来源视图。 }
+
+  - capability_id: cap.zengshan-buyi.lookup-transform
+    revision: 1
+    status: active
+    slug: lookup-transform
+    title: 确定性查表与局部变换
+    importance: high
+    importance_rationale: 命中 ZSBY-T02/T04/T05/T06/T09；统一有限历史映射并减少抄表错误。
+    one_liner: 每个表独立查证并标来源，只运行验证集合，不用一个表替代另一个表。
+    intents: [核对六亲世应六神六冲旬空等有限映射, 检查局部变换]
+    keywords: [查表, 六亲, 世应, 六神, 旬空, lookup]
+    also_read: [line-encoding, evidence-ledger]
+    card: cards/lookup-transform.md
+    frontmatter:
+      description: >-
+        当用户已有卦或干支字段，要求按《增删卜易》核对六亲、世应、六神、六冲、旬空等有限查表时使用。纳甲异文、三合完整条件和完整排盘不在范围。Triggers: 查六亲/世应/六神/旬空/lookup table。
+      tags: [lookup, calculation]
+    source_evidence:
+      - source_id: ZSBY-VC-04
+        version_id: wikisource-20260916
+        location: raw L431-L441, L5078-L5974 selected tables
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: true, independent_eval: true }, notes: 依赖上游卦与日期字段。 }
+
+  - capability_id: cap.zengshan-buyi.focus-relations
+    revision: 1
+    status: active
+    slug: focus-relations
+    title: 用神候选与元忌仇关系链
+    importance: high
+    importance_rationale: 命中 ZSBY-T03/T04/T09；固定目标变量并阻止把相对角色误当固定人物。
+    one_liner: 先确认唯一用神，再依五行相对关系重算元神、忌神、仇神。
+    intents: [解释用神元神忌神仇神关系, 在目标明确时生成关系链]
+    keywords: [用神, 元神, 忌神, 仇神, focus relation]
+    also_read: [question-contract, evidence-ledger]
+    card: cards/focus-relations.md
+    frontmatter:
+      description: >-
+        当用户询问用神、元神、忌神、仇神如何相对确定，且问题与唯一目标已明确时使用。遇到用神两现、不现、混问或代占歧义必须停止，不给唯一裁决。Triggers: 用神/元神/忌神/仇神/focus element。
+      tags: [focus, five-elements]
+    source_evidence:
+      - source_id: ZSBY-VC-05
+        version_id: wikisource-20260916
+        location: raw L4736-L4778, L5168-L5199
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: true, independent_eval: true }, notes: 依赖问题合同和排盘字段。 }
+
+  - capability_id: cap.zengshan-buyi.evidence-ledger
+    revision: 1
+    status: active
+    slug: evidence-ledger
+    title: 四来源作用账本
+    importance: critical
+    importance_rationale: 命中 ZSBY-T02/T04/T05；强制保留支持、反对、无效与缺失证据，避免单信号断言。
+    one_liner: 月、日、动爻、本位变爻分栏审计作用域与有效性，冲突未决就保持未决。
+    intents: [整理六爻内部支持反对证据, 审计月日动变作用范围]
+    keywords: [月建, 日辰, 动爻, 变爻, 证据账本, evidence ledger]
+    also_read: [focus-relations, rule-audit]
+    card: cards/evidence-ledger.md
+    frontmatter:
+      description: >-
+        当用户已有目标爻与月、日、动爻、变爻信息，要求按《增删卜易》整理支持/反对/失效证据时使用。输出历史系统内部账本，不投票成现实概率；同强冲突保持未决。Triggers: 旺衰/月日/动变/证据链/evidence ledger。
+      tags: [evidence, interpretation]
+    source_evidence:
+      - source_id: ZSBY-VC-06
+        version_id: wikisource-20260916
+        location: raw L4736-L4758, L5202-L5543, L5772
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: true, independent_eval: true }, notes: 解释链内部步骤。 }
+
+  - capability_id: cap.zengshan-buyi.rule-audit
+    revision: 1
+    status: active
+    slug: rule-audit
+    title: 旧说修订与反例审计
+    importance: high
+    importance_rationale: 命中 ZSBY-T03/T04/T05/T07/T09；防止冲突口诀并行执行及精选命中冒充验证。
+    one_liner: 把旧说、修订、案例和反例放入同一矩阵，区分书内状态与现代证据状态。
+    intents: [核对相互冲突的六爻口诀, 审计某条古法是否被本书修订]
+    keywords: [辨误, 旧说, 反例, rule audit, evidence]
+    also_read: [provenance-audit, evidence-ledger]
+    card: cards/rule-audit.md
+    frontmatter:
+      description: >-
+        当用户拿两条相互矛盾的六爻口诀，或问《增删卜易》是否修订某种旧说时使用。输出来源、说话人、修订和反例矩阵；不把书内“屡验”当科学验证。Triggers: 哪条规则对/古法冲突/辨误/反例/rule audit。
+      tags: [audit, counterexample]
+    source_evidence:
+      - source_id: ZSBY-VC-07
+        version_id: wikisource-20260916
+        location: raw L685-L700, L5570-L6055 selected passages
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 主要服务本书规则核查。 }
+
+  - capability_id: cap.zengshan-buyi.timing-candidates
+    revision: 1
+    status: active
+    slug: timing-candidates
+    title: 状态转换与应期候选生成
+    importance: medium
+    importance_rationale: 命中 ZSBY-T04/T06；可复现生成研究候选，但缺少可靠排序与现实效度。
+    one_liner: 依已知状态生成未排序触发候选，保留每条推导链，不挑“必中”日期。
+    intents: [研究《增删卜易》的应期候选如何生成, 列出历史规则的时间触发点]
+    keywords: [应期, 候选日期, timing candidates, 逢值, 逢冲]
+    also_read: [evidence-ledger]
+    card: cards/timing-candidates.md
+    frontmatter:
+      description: >-
+        当用户明确做历史研究，已有爻状态且要生成《增删卜易》的应期候选时使用。只输出未排序候选与推导理由，不给必中日期、概率或现实行动建议。Triggers: 应期候选/逢值逢冲/填实/冲开/timing research。
+      tags: [timing, research]
+    source_evidence:
+      - source_id: ZSBY-VC-08
+        version_id: wikisource-20260916
+        location: raw L5602-L5606, L5891-L5954, L6010-L6035
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: false, independent_eval: true }, notes: 研究模式且排序与失败定义未解决。 }
+
+  - capability_id: cap.zengshan-buyi.domain-router
+    revision: 1
+    status: active
+    slug: domain-router
+    title: 具体疑点与领域专章路由
+    importance: high
+    importance_rationale: 命中 ZSBY-T01/T03/T08；阻止共享符号把一个问题偷换成另一个结果。
+    one_liner: 先拆具体疑点，再按每个结果变量路由历史章节并分别写完成标准。
+    intents: [把跨领域占问分配到对应历史章节, 防止一项结果兼答多题]
+    keywords: [领域路由, 专章, 具体疑点, domain routing]
+    also_read: [question-contract, high-risk-stop]
+    card: cards/domain-router.md
+    frontmatter:
+      description: >-
+        当占问跨越感情、工作、财务、健康等领域，或用户希望查《增删卜易》对应章节时使用。先拆独立目标，再路由历史材料；领域断语仍只是 reference。Triggers: 查哪一章/同时问多个领域/domain route。
+      tags: [routing, scope]
+    source_evidence:
+      - source_id: ZSBY-VC-09
+        version_id: wikisource-20260916
+        location: raw L3440-L3444, L4244-L4281
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: true, independent_eval: true }, notes: 来源入口的内部路由能力。 }
+
+  - capability_id: cap.zengshan-buyi.high-risk-stop
+    revision: 1
+    status: active
+    slug: high-risk-stop
+    title: 高风险请求停止与专业转交
+    importance: critical
+    importance_rationale: 命中 ZSBY-T01/T07/T08/T09；遗漏会使传统术数替代专业帮助并造成现实风险。
+    one_liner: 一旦触及高风险现实行动，停止占断、说明局限并转向合格专业渠道。
+    intents: [识别不应继续占断的高风险问题, 隔离历史材料与现实行动建议]
+    keywords: [医疗, 法律, 投资, 生育, 死亡, safety stop]
+    also_read: [question-contract, domain-router]
+    card: cards/high-risk-stop.md
+    frontmatter:
+      description: >-
+        当六爻请求涉及医疗诊断、法律结论、投资交易、生育与胎儿性别、死亡犯罪、灾害或紧急安全行动时必须使用。立即停止术数结论并建议合格专业渠道；只可隔离展示历史文本。Triggers: 要不要急诊/会不会死/能否胜诉/买哪只/胎儿性别。
+      tags: [safety, stop-condition]
+    source_evidence:
+      - source_id: ZSBY-VC-10
+        version_id: wikisource-20260916
+        location: raw L121-L124, L3200-L3221, L4014-L4018, L4151-L4153
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 必须内嵌主入口，不能形成高风险占断入口。 }

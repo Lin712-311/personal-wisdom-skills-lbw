@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "requested": "auto",
+  "selected": "pack",
+  "decision_policy": "single-first-v1",
+  "skill_budget": 8,
+  "promoted_count": 0,
+  "capability_count": 10,
+  "reasons": [
+    "用户目的为 workflow → pack"
+  ],
+  "alternative": "single（1 个入口 + 10 张内部能力卡）",
+  "user_confirmed": false,
+  "preserve_strategy_on_update": true
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "out-encoding-ok",
+  "variant_label": "vA",
+  "prompt": "六次自下而上为单、拆、重、交、单、拆；输出阴阳动静、动爻和变后阴阳。",
+  "input_files": [],
+  "instruction": "按 prompt 实际完成任务，最终答案写同目录 output.md，其他交付物也放在本目录。不要读取相邻变体、映射表或预期答案。"
+}

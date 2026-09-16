@@ -1,0 +1,32 @@
+{
+  "suite_id": "zengshan-buyi-router-v1",
+  "seed": 42,
+  "train": [
+    "edge-conflict",
+    "tr-ledger",
+    "edge-health-route",
+    "no-tarot",
+    "edge-najia",
+    "edge-unknown-author",
+    "edge-hit-date",
+    "edge-subject",
+    "edge-two-focus",
+    "edge-proof",
+    "tr-question",
+    "edge-five-lines",
+    "no-weather",
+    "tr-rule"
+  ],
+  "validation": [
+    "tr-safety",
+    "tr-encoding",
+    "sibling-cast",
+    "tr-focus",
+    "edge-history-only",
+    "tr-timing",
+    "tr-domain",
+    "tr-provenance",
+    "tr-lookup",
+    "no-python"
+  ]
+}

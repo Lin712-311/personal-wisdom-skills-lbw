@@ -1,0 +1,7 @@
+{
+  "case_id": "out-provenance-ok",
+  "variant_label": "vA",
+  "prompt": "审计：raw L5097 明标‘原剑按’，输出来源层、证据、置信度和未决项。",
+  "input_files": [],
+  "instruction": "按 prompt 实际完成任务，最终答案写同目录 output.md，其他交付物也放在本目录。不要读取相邻变体、映射表或预期答案。"
+}

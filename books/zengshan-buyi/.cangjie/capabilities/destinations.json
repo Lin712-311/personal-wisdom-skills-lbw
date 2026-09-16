@@ -1,0 +1,15 @@
+{
+  "bundle_id": "bundle.zengshan-buyi",
+  "destinations": {
+    "cap.zengshan-buyi.provenance-audit": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.question-contract": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.line-encoding": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.lookup-transform": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.focus-relations": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.evidence-ledger": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.rule-audit": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.timing-candidates": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.domain-router": { "served_by": "zengshan-buyi" },
+    "cap.zengshan-buyi.high-risk-stop": { "served_by": "zengshan-buyi" }
+  }
+}

@@ -1,6 +1,6 @@
 # 《增刪卜易》Stage 1.5 覆盖审计
 
-> 链路：原文位置 → Stage 1 source candidate → 最终 canonical/decision → 最终交付路径 → 剩余缺口。当前“交付路径”指本阶段文件及 Stage 3 规划去向；尚未创建能力卡或 Bundle。
+> 链路：原文位置 → Stage 1 source candidate → 最终 canonical/decision → 最终交付路径 → 剩余缺口。Stage 2–4 已创建并盲测 Capability Bundle；下表保留 Stage 1.5 原始路径，文末登记实际交付路径。
 
 ## 数量与口径
 
@@ -43,5 +43,26 @@
 ## 覆盖结论
 
 - `ZSBY-T01`–`T09` 均有“位置—候选—decision—去向”链路；没有因未通过而静默消失。
-- T02/T03/T04/T05/T06/T07/T09 仍有实质缺口，因此 Stage 1.5 只可声明“带范围完成，等待用户轻确认”，不能声明整套术数算法完整或有效。
+- T02/T03/T04/T05/T06/T07/T09 仍有实质缺口，因此只能声明“限定能力完成”，不能声明整套术数算法完整或有效。
 - 所有 `verified` 均受统一边界约束：历史系统内部可复现或安全审计，不代表现实预测效力。
+
+## Stage 2–5 实际交付路径
+
+| canonical | 能力卡 |
+|---|---|
+| VC-01 | `.cangjie/capabilities/cards/provenance-audit.md` |
+| VC-02 | `.cangjie/capabilities/cards/question-contract.md` |
+| VC-03 | `.cangjie/capabilities/cards/line-encoding.md` |
+| VC-04 | `.cangjie/capabilities/cards/lookup-transform.md` |
+| VC-05 | `.cangjie/capabilities/cards/focus-relations.md` |
+| VC-06 | `.cangjie/capabilities/cards/evidence-ledger.md` |
+| VC-07 | `.cangjie/capabilities/cards/rule-audit.md` |
+| VC-08 | `.cangjie/capabilities/cards/timing-candidates.md` |
+| VC-09 | `.cangjie/capabilities/cards/domain-router.md` |
+| VC-10 | `.cangjie/capabilities/cards/high-risk-stop.md` |
+
+- 23 个术语已落实到 `GLOSSARY.md` 和 `.cangjie/capabilities/book/glossary.md`。
+- 案例组、领域矩阵、证据限制和版本边界已落实到 `.cangjie/capabilities/book/overview.md`。
+- 读者版精华已落实到 `DIGEST.md`。
+- Stage 4 独立盲测：24/24 路由判断完成，F1 1.000，兄弟混淆 0/2；20/20 实际输出完成且全部机械断言通过。初始 fixture 修订记录见 `.cangjie/runs/stage4/test-revisions.md`。
+- `destinations.json` 为 10 个 active 能力登记唯一 `served_by: zengshan-buyi` 去向，没有能力失联。

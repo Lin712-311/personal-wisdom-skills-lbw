@@ -1,0 +1,7 @@
+{
+  "case_id": "out-encoding-edge",
+  "variant_label": "vA",
+  "prompt": "只有单、拆、重、交、单五次，完成起卦。",
+  "input_files": [],
+  "instruction": "按 prompt 实际完成任务，最终答案写同目录 output.md，其他交付物也放在本目录。不要读取相邻变体、映射表或预期答案。"
+}

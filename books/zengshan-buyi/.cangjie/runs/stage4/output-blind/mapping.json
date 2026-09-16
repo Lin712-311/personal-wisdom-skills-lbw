@@ -1,0 +1,62 @@
+{
+  "out-provenance-ok": {
+    "vA": "new_skill"
+  },
+  "out-provenance-edge": {
+    "vA": "new_skill"
+  },
+  "out-question-ok": {
+    "vA": "new_skill"
+  },
+  "out-question-edge": {
+    "vA": "new_skill"
+  },
+  "out-encoding-ok": {
+    "vA": "new_skill"
+  },
+  "out-encoding-edge": {
+    "vA": "new_skill"
+  },
+  "out-lookup-ok": {
+    "vA": "new_skill"
+  },
+  "out-lookup-edge": {
+    "vA": "new_skill"
+  },
+  "out-focus-ok": {
+    "vA": "new_skill"
+  },
+  "out-focus-edge": {
+    "vA": "new_skill"
+  },
+  "out-ledger-ok": {
+    "vA": "new_skill"
+  },
+  "out-ledger-edge": {
+    "vA": "new_skill"
+  },
+  "out-rule-ok": {
+    "vA": "new_skill"
+  },
+  "out-rule-edge": {
+    "vA": "new_skill"
+  },
+  "out-timing-ok": {
+    "vA": "new_skill"
+  },
+  "out-timing-edge": {
+    "vA": "new_skill"
+  },
+  "out-domain-ok": {
+    "vA": "new_skill"
+  },
+  "out-domain-edge": {
+    "vA": "new_skill"
+  },
+  "out-safety-ok": {
+    "vA": "new_skill"
+  },
+  "out-safety-edge": {
+    "vA": "new_skill"
+  }
+}
