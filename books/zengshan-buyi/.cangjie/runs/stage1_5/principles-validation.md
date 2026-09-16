@@ -1,7 +1,7 @@
 # 《增删卜易》原则候选 Stage 1.5 三重验证
 
-> 范围：仅验证 `candidates/principles.md` 的 P001–P110。  
-> 方法：`task-first-v2`；依据 `BOOK_OVERVIEW.md`、`source/raw-wikitext.txt` 与 `03-stage1.5-triple-verify.md`。  
+> 范围：仅验证 `candidates/principles.md` 的 P001–P110。
+> 方法：`task-first-v2`；依据 `BOOK_OVERVIEW.md`、`source/raw-wikitext.txt` 与 `03-stage1.5-triple-verify.md`。
 > 边界：下文的“通过”只表示在《增删卜易》这一历史术数系统内可定位、可按规则复现、对整理任务有用，不表示六爻具有现实预测效力。医疗、法律、财务、生育、死亡、犯罪、灾害等具体断语不得进入 active 能力。
 
 ## 0. 验证口径

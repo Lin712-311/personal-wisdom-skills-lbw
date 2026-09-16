@@ -1,7 +1,7 @@
 # 《增刪卜易》Stage 1.5 最终 verified canonical
 
-> validation_version: `task-first-v2`  
-> validation_mode: 纸面 walkthrough；不是 Stage 4 真实宿主测试。  
+> validation_version: `task-first-v2`
+> validation_mode: 纸面 walkthrough；不是 Stage 4 真实宿主测试。
 > **总边界**：这里的 `verified` 只表示规则可从当前镜像中的限定来源重建、能在《增刪卜易》的历史术数系统内部复现，或能执行安全的文本/风险审计；**不表示六爻具有现实预测效力**，也不构成医疗、法律、财务、生育、安全或其他专业建议。
 
 ## 合并口径与数量

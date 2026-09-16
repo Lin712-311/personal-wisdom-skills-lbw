@@ -1,7 +1,7 @@
 # Stage 1.5 分区验证：cases + glossary
 
-> 范围：仅验证 `candidates/cases.md` 的 `c01`–`c24` 与 `candidates/glossary.md` 的 `g01`–`g23`。  
-> 方法：`task-first-v2`（V1 来源充分性、V2 可执行性、V3 任务增益）。  
+> 范围：仅验证 `candidates/cases.md` 的 `c01`–`c24` 与 `candidates/glossary.md` 的 `g01`–`g23`。
+> 方法：`task-first-v2`（V1 来源充分性、V2 可执行性、V3 任务增益）。
 > 证据边界：本报告判断的是候选是否忠实反映当前《增刪卜易》镜像中的记载，以及它对后续整理有什么用途；**不认可六爻占卜具有经现代科学验证的预测效力**。
 
 ## 1. 判定口径

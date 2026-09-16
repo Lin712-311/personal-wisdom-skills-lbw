@@ -1,9 +1,9 @@
 # 《增刪卜易》Stage 1.5 分区验证：frameworks + counter-examples
 
-> validation_version: `task-first-v2`  
-> validation_scope: `candidates/frameworks.md`（17 项）与 `candidates/counter-examples.md`（19 项）  
-> evidence_base: `source/raw-wikitext.txt`、`BOOK_OVERVIEW.md`、`D:/Codex/skills/cangjie-skill/methodology/03-stage1.5-triple-verify.md`  
-> validation_mode: 纸面演练（walkthrough），不是阶段 4 的真实宿主测试  
+> validation_version: `task-first-v2`
+> validation_scope: `candidates/frameworks.md`（17 项）与 `candidates/counter-examples.md`（19 项）
+> evidence_base: `source/raw-wikitext.txt`、`BOOK_OVERVIEW.md`、`D:/Codex/skills/cangjie-skill/methodology/03-stage1.5-triple-verify.md`
+> validation_mode: 纸面演练（walkthrough），不是阶段 4 的真实宿主测试
 > boundary: 下文的 `verified` 只表示规则可从现有文本重建、可在传统术数系统内部复现、且对历史研究任务有用；**不表示六爻具有现实预测效力**，也不得替代医疗、法律、财务、安全等专业判断。
 
 ## 1. 去重规则与判定口径
