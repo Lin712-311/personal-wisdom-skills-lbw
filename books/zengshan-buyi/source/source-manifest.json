@@ -1,0 +1,15 @@
+{
+  "title": "增刪卜易",
+  "source_type": "github-mirror",
+  "source_format": "plain-text",
+  "source_url": "https://raw.githubusercontent.com/weihus/liuyao/bd26ac0260f2fbf1ca81a645330035b7886cef78/%E5%A2%9E%E5%88%A0%E5%8D%9C%E6%98%93.txt",
+  "source_commit": "bd26ac0260f2fbf1ca81a645330035b7886cef78",
+  "upstream_wikisource_url": "https://zh.wikisource.org/wiki/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93",
+  "retrieved_at": "2026-09-16T06:20:20.793686+00:00",
+  "page_count": 1,
+  "pages": [
+    "增刪卜易"
+  ],
+  "sha256": "81d73e4aaf29a1a591250db9e43bb5d815b5ef4a06555c42c1087e9a3f3a3fa7",
+  "limitations": "Direct zh.wikisource.org API fetching was attempted on 2026-09-16 but repeated parse requests remained rate-limited with HTTP 429; this is a pinned GitHub mirror fallback and is not represented as a direct Wikisource snapshot."
+}
