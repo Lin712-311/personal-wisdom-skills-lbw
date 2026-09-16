@@ -2,8 +2,8 @@
 
 ## 当前状态
 
-- **当前阶段**：Stage 0 — 整书理解已形成，等待用户确认
-- **执行状态**：尚未进入候选提取、能力晋级、编译或安装
+- **当前阶段**：Stage 1.5 — 三重验证已完成，等待用户轻确认
+- **执行状态**：150 个 source candidate 已完成来源、可执行性与任务增益审计；尚未进入 Capability Bundle 编译
 - **目标形态**：一个 `zhouyi-classics` 来源 companion，作为现有六爻 Skill 的经传/义理辅助层，不新建相互抢触发的“周易”和“易经”两个入口
 - **最近更新**：2026-09-17（Australia/Sydney）
 
@@ -31,8 +31,18 @@
 - [x] 形成一句话主旨与 6 个一级结构
 - [x] 建立关键术语、核心命题、批判边界和任务覆盖表
 - [x] 明确与纳甲六爻的接口和禁止倒灌项
-- [ ] 向用户展示并取得 Stage 0 确认
+- [x] 向用户展示并取得 Stage 0 确认（2026-09-17 01:22:34 +10:00，用户回复“jixu”）
 
 ## 下一步门禁
 
-只有用户确认 `BOOK_OVERVIEW.md` 的骨架、来源分层及用途边界后，才进入 Stage 1 多路候选提取。未确认前不得编译或安装为自动触发 Skill。
+请用户确认 Stage 1.5 的四类分流：10 个 verified canonical、18 个 reference canonical、6 个 needs-review，以及 source-level 去重映射。确认后进入 Stage 1.6；推荐仍为 1 个 `zhouyi-classics` 来源入口，不拆成多个抢触发的 Skill。
+
+## Stage 1 / 1.5 数量
+
+- frameworks：30
+- principles：60
+- cases：14
+- counter-examples / external boundaries：16
+- glossary：30
+- source candidates 合计：150
+- 最终 canonical：verified 10 / reference 18 / needs_review 6
