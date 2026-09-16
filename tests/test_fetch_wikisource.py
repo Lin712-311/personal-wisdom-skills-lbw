@@ -10,6 +10,7 @@ from scripts.fetch_wikisource import (
     fetch_book,
     fetch_github_mirror,
     sha256_text,
+    wikisource_page_key,
 )
 
 
@@ -60,6 +61,31 @@ class FetchWikisourceTests(unittest.TestCase):
                 manifest["sha256"],
             )
 
+    def test_wikisource_page_key_uses_reading_order(self):
+        pages = [
+            "增刪卜易/10",
+            "增刪卜易/3/八卦各宮全圖",
+            "增刪卜易/2",
+            "增刪卜易/26又2",
+            "增刪卜易/序",
+            "增刪卜易/26",
+            "增刪卜易/26又1",
+            "增刪卜易/3",
+        ]
+        self.assertEqual(
+            sorted(pages, key=lambda page: wikisource_page_key(page, "增刪卜易")),
+            [
+                "增刪卜易/序",
+                "增刪卜易/2",
+                "增刪卜易/3",
+                "增刪卜易/3/八卦各宮全圖",
+                "增刪卜易/10",
+                "增刪卜易/26",
+                "增刪卜易/26又1",
+                "增刪卜易/26又2",
+            ],
+        )
+
     @patch("scripts.fetch_wikisource.api_json")
     def test_fetch_book_succeeds_when_allpages_is_empty(self, api_json):
         api_json.side_effect = [
@@ -97,7 +123,6 @@ class FetchWikisourceTests(unittest.TestCase):
                 manifest["sha256"],
                 sha256_text("完整文本\n"),
             )
-
 
 if __name__ == "__main__":
     unittest.main()

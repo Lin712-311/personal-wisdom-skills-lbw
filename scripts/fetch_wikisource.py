@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import time
 import urllib.parse
 import urllib.request
@@ -36,6 +37,24 @@ def api_json(api_base: str, params: dict[str, str]) -> dict[str, Any]:
 
 def sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def wikisource_page_key(title: str, root_title: str) -> tuple[int, int, int, str]:
+    """Sort numeric Wikisource subpages in reading order, not lexically."""
+    if title == root_title:
+        return (0, 0, 0, "")
+    suffix = title.removeprefix(f"{root_title}/")
+    if suffix == "序":
+        return (1, 0, 0, "")
+    match = re.fullmatch(r"(\d+)(又(\d*)?)?(?:/(.*))?", suffix)
+    if not match:
+        return (3, 0, 0, suffix)
+    chapter = int(match.group(1))
+    repeated = match.group(2) is not None
+    repeat_number = int(match.group(3) or 1) if repeated else 0
+    nested = match.group(4) or ""
+    variant = 2 + repeat_number if repeated else (1 if nested else 0)
+    return (2, chapter, variant, nested)
 
 
 def fetch_github_mirror(
@@ -96,7 +115,10 @@ def fetch_book(api_base: str, title: str, output_dir: Path) -> dict[str, object]
             "format": "json",
         },
     )
-    pages = [title] + sorted(item["title"] for item in listing["query"]["allpages"])
+    pages = [title] + sorted(
+        (item["title"] for item in listing["query"]["allpages"]),
+        key=lambda page: wikisource_page_key(page, title),
+    )
 
     sections: list[str] = []
     for page in pages:
