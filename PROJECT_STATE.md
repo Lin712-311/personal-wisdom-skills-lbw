@@ -1,6 +1,6 @@
 # Project handoff — traditional divination v1
 
-- **Handoff ID**: `TDV1-20260916-STAGE5-PREVIEW`
+- **Handoff ID**: `TDV1-20260916-COMPLETE`
 - **Updated**: 2026-09-16 (Australia/Sydney)
 - **Repository**: `C:\Users\19364\Documents\Codex\personal-wisdom-skills-lbw` (local-only path)
 - **Remote**: `https://github.com/Lin712-311/personal-wisdom-skills-lbw.git`
@@ -33,20 +33,24 @@
 - Stage 3 produced a 23-term glossary, linked cards and book overview.
 - Stage 4 independent blind evaluation completed: routing 24/24 with F1 1.000 and sibling confusion 0/2; output tasks 20/20 completed with all configured assertions passing.
 - Stage 5 produced a 5,423-character `DIGEST.md`; compile preview recommends `pack` for workflow purpose, yielding one source router and zero promoted skills.
+- User confirmed the recommended `pack`; Cangjie run `run-20260916-181254-65f060` compiled it successfully.
+- The companion was installed at `D:\Codex\skills\zengshan-buyi`: source and installed copies each contain 15 files, with zero per-file SHA-256 differences.
+- Both compiled and installed packs pass validation with 0 errors and 0 warnings; the installed `SKILL.md` SHA-256 is `C692C5DA398B7576B4B9137600EAA7B42CACA490D917406BD4BAE3EDD27C370E`.
 - `BOOK_ROADMAP.md` classifies follow-on books without mixing medicine, economic history or fraud studies into divination rules.
 
-## Pending user decision (hard gate)
+## Delivery state
 
-The deterministic compile preview recommends `pack` because the purpose is workflow. In this bundle, pack contains one `zengshan-buyi` source router and no promoted siblings, so it keeps one discoverable entry and all 10 internal cards.
+- No pipeline confirmation remains pending. The recommended pack has been compiled, validated and installed.
+- A normal request such as “给我算一卦” or “用六爻看看” routes to `traditional-divination-skill`.
+- An explicit request such as “按《增删卜易》解释” or “核对这条古籍规则” routes to the `zengshan-buyi` companion.
+- The newly installed companion becomes discoverable from the next conversation turn after the host refreshes its skill catalog.
 
-Required response: `按推荐` / `改成 single` / `改成 pack`.
+## Future update path
 
-## Next executable step after confirmation
-
-1. Run `cangjie.py compile ... --output auto --purpose workflow --yes` for “按推荐”, or the explicit selected output mode.
-2. Validate the compiled artifact, install it to `D:\Codex\skills\zengshan-buyi`, and run one source-router smoke test plus one sibling-boundary smoke test.
-3. Update `PIPELINE_STATE.md` to complete, commit and push the final artifacts and handoff state.
+1. Preserve the pack strategy, source-layer labels and high-risk stop card when revising this companion.
+2. Re-run Cangjie validation and both routing boundary tests before replacing the installed copy.
+3. Distill the next approved book as a separate source companion; do not silently merge medicine, economic history or fraud studies into divination logic.
 
 ## Known boundary
 
-The installed primary skill is usable now for question normalization, casting, and deterministic original/moving/changed hexagram calculation. Until the Cangjie companion is compiled and installed, it must label interpretation as simplified and must not claim full 纳甲、月建、日辰、旬空、六神、世应、六亲、用神、旺衰 or 应期 support.
+The primary skill and the installed companion are usable for question normalization, casting, deterministic original/moving/changed hexagram calculation, source routing and bounded historical interpretation. Seven needs-review gaps remain, so neither skill may claim complete 纳甲、月建、日辰、旬空、六神、世应、六亲、用神、旺衰 or 应期 support. Divination output remains cultural reflection rather than evidence for medical, legal, financial, fertility, death, crime or disaster decisions.
