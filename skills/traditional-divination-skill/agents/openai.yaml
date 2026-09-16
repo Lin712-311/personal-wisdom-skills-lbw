@@ -1,0 +1,6 @@
+interface:
+  display_name: "传统六爻顾问"
+  short_description: "自然语言起卦、复核卦象并给出有边界的传统解释"
+  default_prompt: "使用 $traditional-divination-skill 帮我把一个具体问题整理后起卦分析。"
+policy:
+  allow_implicit_invocation: true

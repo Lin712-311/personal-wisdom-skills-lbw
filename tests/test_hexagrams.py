@@ -89,6 +89,7 @@ class CoinCastingTests(unittest.TestCase):
         self.assertEqual(result["coins"], [2, 3] * 9)
         self.assertEqual(result["lines"], [7, 8, 7, 8, 7, 8])
         self.assertEqual(result["coin_groups"], [[2, 3, 2], [3, 2, 3]] * 3)
+        self.assertRegex(result["generated_at"], r"^\d{4}-\d{2}-\d{2}T.*\+00:00$")
 
 
 class CliTests(unittest.TestCase):
