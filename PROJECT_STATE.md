@@ -1,6 +1,6 @@
 # Project handoff — traditional divination v1
 
-- **Handoff ID**: `TDV1-20260916-STAGE0`
+- **Handoff ID**: `TDV1-20260916-STAGE1.5`
 - **Updated**: 2026-09-16 (Australia/Sydney)
 - **Repository**: `C:\Users\19364\Documents\Codex\personal-wisdom-skills-lbw` (local-only path)
 - **Remote**: `https://github.com/Lin712-311/personal-wisdom-skills-lbw.git`
@@ -21,23 +21,28 @@
 - 17 unit tests pass; skill format validation passes; security scan is clean.
 - Installed at `D:\Codex\skills\traditional-divination-skill` (local-only path); source and installed `SKILL.md` hashes matched at installation.
 - Wikisource snapshot contains 34 pages in reading order, SHA-256 `377f1f4280dd528000825300f83337a859645c34912d11ff979242b864aa4592`.
-- Cangjie Stage 0 read the complete source (`L1–L6056/EOF`) and produced `books/zengshan-buyi/BOOK_OVERVIEW.md` plus `PIPELINE_STATE.md`.
-- Feature branch pushed to GitHub through commit `2bfe872`.
+- Cangjie Stage 0 read the complete source (`L1–L6056/EOF`) and produced `books/zengshan-buyi/BOOK_OVERVIEW.md` plus `PIPELINE_STATE.md`; the user confirmed its three scope decisions.
+- Stage 1 extracted 193 independently sourced candidates: 17 frameworks, 110 principles, 24 cases, 19 counter-examples and 23 glossary terms.
+- Stage 1.5 completed three independent validation passes and a cross-partition consolidation. Every source candidate has a recorded disposition.
+- Source-level disposition: 21 verified, 74 reference, 14 needs-review and 84 rejected-as-duplicate-or-misattributed (193 total).
+- Canonical disposition after deduplication: 10 verified, 26 reference, 7 needs-review and 0 unsupported canonical rejections.
+- Final audit artifacts are `verified.md`, `references.md`, `needs-review.md`, `rejected/by-source-id.md` and `coverage-audit.md` under `books/zengshan-buyi/`.
+- Feature branch has been pushed through the Stage 1 extraction commit `3991038`; the Stage 1.5 audit commit follows this handoff update.
 
 ## Pending user decision (hard gate)
 
-Cangjie Stage 1 must not begin until the user confirms the Stage 0 overview. The concise confirmation is:
+Cangjie Stage 1.6 must not begin until the user reviews and lightly confirms the Stage 1.5 four-way disposition. The concise confirmation is:
 
-> 接受当前来源分层；继续把它做成“有来源、可复核、有安全边界的传统文化占问”，不包装成科学预测，高风险领域不输出决策结论。
+> 确认 Stage 1.5 的 verified / reference / needs_review / rejected 范围，进入下一阶段。
 
-If the user disagrees, update `BOOK_OVERVIEW.md` and `PIPELINE_STATE.md` before extraction.
+If the user disagrees, revise the Stage 1.5 audit files and `PIPELINE_STATE.md` before promotion work.
 
 ## Next executable step after confirmation
 
-1. Record the confirmation time in `BOOK_OVERVIEW.md` and mark Stage 0 approved in `PIPELINE_STATE.md`.
-2. Run the five Cangjie Stage 1 extraction roles with independent outputs.
-3. Perform Stage 1.5 triple verification and stop for the next required user confirmation.
-4. Acceptance: candidates are source-located, coverage-audited, and routed to `verified`, `reference`, `needs_review`, or `rejected` without creating active capability cards early.
+1. Record the Stage 1.5 confirmation in `PIPELINE_STATE.md`.
+2. Read and execute the Cangjie Stage 1.6 promotion gate.
+3. Create only the capability cards supported by the 10 verified canonical items; keep references and unresolved gaps inactive.
+4. Continue the required pressure tests and compilation stages before installing the 《增删卜易》 companion Skill.
 
 ## Known boundary
 

@@ -2,9 +2,9 @@
 
 ## 当前状态
 
-- **当前阶段**：Stage 1.5 — 三重验证
-- **执行状态**：**Stage 0 已获用户确认；Stage 1 五路候选提取完成；Stage 1.5 进行中**
-- **阶段门**：Stage 1 已解锁。Stage 1.5 完成后必须再次获得用户轻确认，才可进入 Stage 1.6 和能力卡编译。
+- **当前阶段**：Stage 1.5 — 三重验证（已完成）
+- **执行状态**：**Stage 0 已获确认；Stage 1 提取完成；Stage 1.5 最终审计完成，等待用户轻确认**
+- **阶段门**：**禁止进入 Stage 1.6**。必须先向用户展示四类数量、10 个 verified canonical 与重要缺口，并取得明确轻确认；确认不能替代来源验证。
 - **最近更新**：2026-09-16（Australia/Sydney）
 
 ## Stage 0 输入与校验
@@ -46,17 +46,17 @@
 - [x] 建立带 task_id、来源位置、预期交付物、重要性依据和缺口的关键任务表
 - [x] 用户已确认 Stage 0（2026-09-16 16:40:40 +10:00，回复“继续”）
 
-## 已确认的 3 个关键点
+## Stage 0 已确认的 3 个关键点
 
-1. **版本与归属**：是否接受当前“野鶴主体 / 李文辉觉子增删 / 李我平评议 / 原剑及录入者现代补料”的四层划分；是否有更可靠的影印本或校勘本可用于核对未署名段落和原刊年份。
-2. **蒸馏目标**：后续是否以“历史规则的可复现重建 + 批判性检验”为主，而不是把六爻输出包装成现实预测或专业建议。
-3. **安全边界**：是否同意医疗、法律、财务、生育、死亡、犯罪和灾害等内容只能进入 reference/needs_review，不能编译为会给出现实决策结论的 active 能力。
+1. **版本与归属**：接受当前“野鶴主体 / 李文辉觉子增删 / 李我平评议 / 原剑及录入者现代补料”的四层划分；未署名段落和原刊年份仍等待更可靠的影印本或校勘本核对。
+2. **蒸馏目标**：以后续“历史规则的可复现重建 + 批判性检验”为主，不把六爻输出包装成现实预测或专业建议。
+3. **安全边界**：医疗、法律、财务、生育、死亡、犯罪和灾害等内容只能进入 reference/needs_review，不能编译为会给出现实决策结论的 active 能力。
 
 ## 下一步门禁
 
-- 允许：启动 5 路 Stage 1 extractor，建立 `candidates/`，完成 Stage 1.5 三重验证与覆盖审计。
-- 禁止：在 Stage 1.5 用户轻确认前创建 active 能力卡、Bundle 或编译书本 companion skill。
-- 下一解锁条件：向用户展示 `verified / reference / needs_review / rejected` 四类结果和重要缺口，并取得明确确认。
+- 允许：展示 Stage 1.5 审计结果、回答用户对范围与分流的疑问、根据新底本修订本阶段审计。
+- 禁止：在用户轻确认前启动 Stage 1.6、创建 active 能力卡、Capability Bundle、`destinations.json` 或编译书本 companion skill。
+- 下一解锁条件：用户明确确认当前 `verified / reference / needs_review / rejected` 范围后，才可读取 Stage 1.6 晋级门说明并继续。
 
 ## Stage 1 候选产出
 
@@ -67,3 +67,28 @@
 - `candidates/glossary.md`：23 条核心术语
 - 合计：193 条原始候选；允许跨提取器重复，Stage 1.5 负责合并和路由。
 - 覆盖：五路结果均覆盖 `ZSBY-T01`–`ZSBY-T09`；所有候选均保留原文位置与来源层。
+
+## Stage 1.5 最终审计产出
+
+- `verified.md`：10 个最终 canonical；只表示历史系统内部可复现或安全审计，不表示现实预测效力。
+- `references.md`：26 个最终 reference canonical；完整映射 24 cases、23 glossary、12 个领域原则 reference 与 15 个 framework/counter reference。
+- `needs-review.md`：7 个关键缺口 canonical。
+- `rejected/by-source-id.md`：84 个 source-level rejected 全部按最终 canonical 去重映射；canonical 层 rejected 为 0。
+- `coverage-audit.md`：完成 `ZSBY-T01`–`ZSBY-T09` 的原文位置 → 原候选 → 最终 decision → 交付路径 → 缺口链路。
+
+### 数量口径
+
+| 口径 | verified | reference | needs_review | rejected | 合计 |
+|---|---:|---:|---:|---:|---:|
+| 193 个 source candidate（分区原判定） | 21 | 74 | 14 | 84 | 193 |
+| 跨分区最终 canonical | 10 | 26 | 7 | 0 | 43 |
+
+跨分区 canonical 数较少是因为同一方法在 framework/principle/counter/case/glossary 中重复出现；source-level rejected 表示去重或错误归因，不是删除证据。原则分区曾判 verified 的复占协议最终转入 needs_review：现代预注册和次数上限不能替代原书缺失的停止条件。
+
+### 阻断 Stage 1.6 的主要缺口
+
+1. 端到端纳甲底本、序数/编码、异常输入与字段 schema 未完成。
+2. 用神两现、伏神法与复占法缺稳定仲裁。
+3. 原书复占“明/恍惚”、最大次数、合断与停止条件不可检验。
+4. 规则权重、同强冲突和多候选应期排序/失败定义缺失。
+5. 当前镜像 Textquality 低，纳甲等处有疑似异文；未取得影印/校勘本。
