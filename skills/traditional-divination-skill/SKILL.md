@@ -3,8 +3,8 @@ name: traditional-divination-skill
 description: >-
   使用可复核的三钱六爻结果处理传统占问。用户说算命、占卜、起卦、六爻、问感情事业考试，或提供六次 6/7/8/9 结果时使用。仅解释经典文本、请求八字紫微、咨询医疗法律、要求投资保证或普通随机数时不要使用。
 metadata:
-  version: 0.1.0
-  status: source-audit-pending
+  version: 0.2.0
+  status: beta
 ---
 
 # 传统六爻占问
@@ -20,14 +20,15 @@ metadata:
    - 明确授权程序随机起卦。没有授权不得替用户随机。
 4. 用户授权随机时，只运行一次 `scripts/cast_coins.py`。记录原始 18 枚硬币、六爻结果和生成时间；不得因结果不满意重摇。
 5. 用 `scripts/derive_hexagram.py` 计算本卦、动爻和变卦。不得靠心算替代脚本，不得猜测缺失爻。
-6. 按 [交互流程](references/interaction-flow.md) 和 [输出格式](references/interpretation-format.md) 回答。
-7. 每次都遵守 [安全与不确定性](references/safety-and-uncertainty.md)。涉及书本规则或来源声明时先读 [来源审计](references/source-audit.md)。
+6. 用户提供实际起卦时间和时区时，再用 `scripts/derive_liuyao_chart.py` 生成可复核纳甲盘；运行前阅读 [纳甲排盘引擎](references/najia-engine.md)。不得用提问时间替代未知的起卦时间。
+7. 按 [交互流程](references/interaction-flow.md) 和 [输出格式](references/interpretation-format.md) 回答。
+8. 每次都遵守 [安全与不确定性](references/safety-and-uncertainty.md)。涉及书本规则或来源声明时先读 [来源审计](references/source-audit.md)。
 
 ## 当前能力边界
 
-- 当前版本可靠完成三钱起卦、本卦、动爻、变卦计算。
-- 《增删卜易》的完整仓颉蒸馏仍在来源审计流程中。审计完成前，只能给“简化文化解读”，不得声称使用了完整纳甲、月建、日辰、旬空、六神、世应、六亲、用神、旺衰或应期体系。
-- 用户要求专业纳甲断卦时，说明当前缺少哪些历法与排盘数据，并把结果标为“待完整规则验证”。
+- 当前版本可靠完成三钱起卦、本卦、动爻、变卦，以及在时间与时区完整时生成确定性的纳甲、六亲、六神、世应、旬空和有限旺衰字段。
+- 《增删卜易》已完成来源蒸馏，但用神两现、伏神分歧、规则权重和精确应期仍有显式缺口；遇到这些情况保留并列或 `unresolved`，不得补猜。
+- 排盘正确表示“按所选传统规则算对字段”，不表示现实预测已经科学验证，也不允许把内部旺衰换算成成功率。
 
 ## 完成标准
 

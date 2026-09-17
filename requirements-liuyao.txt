@@ -1,0 +1,5 @@
+# Reproducible deterministic charting runtime and independent audit libraries.
+liuyao-engine @ git+https://github.com/yaomancy/liuyao-engine.git@53291663a4c733c4cbdfa174a8d3075475c07fd3
+sxtwl==2.0.7
+lunar-python==1.4.8
+najia==2.0.1

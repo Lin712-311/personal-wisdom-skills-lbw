@@ -29,4 +29,6 @@ D:\Codex\skills\traditional-divination-skill
 
 > 帮我用六爻看看未来三个月的感情发展，我不懂怎么起卦，请一步一步问我。
 
-也可显式输入 `$traditional-divination-skill`。当前版本可靠计算三钱六爻的本卦、动爻和变卦；《增删卜易》方法仍按 Cangjie 流程进行来源审计，未通过前不会声称完整实现纳甲断法。
+也可显式输入 `$traditional-divination-skill`。当前版本可计算三钱六爻的本卦、动爻和变卦；在提供实际起卦时间与 IANA 时区后，还能生成纳甲、六亲、六神、世应、旬空及有限旺衰字段。
+
+纳甲运行依赖安装在 `requirements-liuyao.txt` 中固定版本的排盘与交叉检查库。排盘字段可复算，但传统解释不等于现实预测准确率；用神两现、伏神分歧、规则权重和精确应期仍保留未决边界。

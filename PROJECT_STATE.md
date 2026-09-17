@@ -1,7 +1,7 @@
 # Project handoff — traditional divination v1
 
 - **Handoff ID**: `TDV1-20260916-COMPLETE`
-- **Updated**: 2026-09-16 (Australia/Sydney)
+- **Updated**: 2026-09-17 (Australia/Sydney)
 - **Repository**: `C:\Users\19364\Documents\Codex\personal-wisdom-skills-lbw` (local-only path)
 - **Remote**: `https://github.com/Lin712-311/personal-wisdom-skills-lbw.git`
 - **Branch**: `feature/traditional-divination-v1`
@@ -37,12 +37,17 @@
 - The companion was installed at `D:\Codex\skills\zengshan-buyi`: source and installed copies each contain 15 files, with zero per-file SHA-256 differences.
 - Both compiled and installed packs pass validation with 0 errors and 0 warnings; the installed `SKILL.md` SHA-256 is `C692C5DA398B7576B4B9137600EAA7B42CACA490D917406BD4BAE3EDD27C370E`.
 - `BOOK_ROADMAP.md` classifies follow-on books without mixing medicine, economic history or fraud studies into divination rules.
+- 《周易》经传与《周易正义》已蒸馏并安装为 `zhouyi-classics`，作为卦爻辞和注疏辅助层。
+- 纳甲排盘升级已安装：固定 `yaomancy/liuyao-engine` 提交 `53291663a4c733c4cbdfa174a8d3075475c07fd3`，并安装 `sxtwl 2.0.7`、`lunar-python 1.4.8`、`najia 2.0.1`。
+- 上游完整开发测试为 22 passed、64 subtests passed；仓库测试现为 28 passed，包含全部 64 卦名称、悉尼 AEST/AEDT 和已记录考试卦的端到端纳甲回归测试。
+- `derive_liuyao_chart.py` 现在接受六个爻值、实际时间、IANA 时区、类别和问题，输出带引擎提交号的结构化盘面。
 
 ## Delivery state
 
 - No pipeline confirmation remains pending. The recommended pack has been compiled, validated and installed.
 - A normal request such as “给我算一卦” or “用六爻看看” routes to `traditional-divination-skill`.
 - An explicit request such as “按《增删卜易》解释” or “核对这条古籍规则” routes to the `zengshan-buyi` companion.
+- 提供实际起卦时间和时区后，主 Skill 会运行 `derive_liuyao_chart.py`，再把排盘事实交给 `zengshan-buyi` 和 `zhouyi-classics` 分层解释。
 - The newly installed companion becomes discoverable from the next conversation turn after the host refreshes its skill catalog.
 
 ## Future update path
@@ -53,4 +58,4 @@
 
 ## Known boundary
 
-The primary skill and the installed companion are usable for question normalization, casting, deterministic original/moving/changed hexagram calculation, source routing and bounded historical interpretation. Seven needs-review gaps remain, so neither skill may claim complete 纳甲、月建、日辰、旬空、六神、世应、六亲、用神、旺衰 or 应期 support. Divination output remains cultural reflection rather than evidence for medical, legal, financial, fertility, death, crime or disaster decisions.
+The primary skill now supports deterministic original/moving/changed hexagrams plus time-aware 纳甲、月建、日辰、旬空、六神、世应、六亲 and limited 旺衰 facts. Seven interpretive needs-review gaps remain, especially 用神两现、伏神分歧、规则权重 and precise 应期, so the system must preserve unresolved results rather than claim one complete universal method. Divination output remains cultural reflection rather than evidence for medical, legal, financial, fertility, death, crime or disaster decisions.
