@@ -1,0 +1,233 @@
+schema_version: 1
+bundle_id: bundle.zhouyi-classics
+book:
+  title: 《周易》经传与《周易正义》
+  author: 经传为复合文本；王弼、韩康伯注，孔颖达疏
+  source_pack: books/zhouyi-classics
+  baseline_tag: wikisource-20260916-zhouyi-da52c7fd-zhengyi-a3b125ba
+entry:
+  name: zhouyi-classics
+  description: >-
+    当用户要查《周易》《易经》的卦爻辞、彖象文言、系辞说卦，或希望用经传与王韩注、孔疏辅助解释本卦、动爻和之卦时调用。
+    负责经典定位、来源分层、时位应比、取象边界与注疏异说；不负责纳甲排盘，也不把传统解释包装成科学预测。
+  core_principles:
+    - 经、传、王韩注、孔疏和现代解释分栏，不把后层冒充经文。
+    - 先读全卦之时，再读相关爻位与条件；不以单爻覆盖全卦。
+    - 时、位、中正、应比都是证据而非自动吉凶公式，冲突时保留未决。
+    - 取象是有限类比，必须说明来源与上下文，禁止字面诊断和无限联想。
+    - 随机或手动起卦由 traditional-divination-skill 完成；纳甲、六亲、世应和旺衰审计交给 zengshan-buyi；本包只增加经传注疏解释。
+    - 高风险现实问题停止占断并转向可核验事实和专业帮助。
+  out_of_scope:
+    - 纳甲、六亲、世应、月建日辰、六神、用神旺衰等后世六爻排盘
+    - 把占筮解释宣称为科学预测、确定事实、现实概率或精确应期
+    - 依据卦象作医疗、法律、投资、生育、犯罪、人身安全等决定
+  stop_conditions:
+    - 不知道具体卦名、爻位或来源层时先补输入，不猜经文。
+    - 遇到版本异文、注疏冲突或 needs-review 缺口时并列说明并停止唯一裁决。
+    - 同一问题无实质新事实却要求重起卦时保留首卦并停止重抽。
+router_entry:
+  name: zhouyi-classics
+  description: >-
+    当用户点名《周易》《易经》《周易正义》、王弼、韩康伯、孔颖达，要求查卦爻辞、彖象、说卦取象、时位应比或用经典辅助六爻时调用。
+    未起卦时优先由 traditional-divination-skill 处理；纳甲、六亲、世应、月建日辰、用神旺衰转给 zengshan-buyi；已有本卦、动爻和之卦且需要经典解释时再路由到这里。不用于高风险现实结论。
+promotion_budget: 8
+capabilities:
+  - capability_id: cap.zhouyi-classics.source-layer-audit
+    revision: 1
+    status: active
+    slug: source-layer-audit
+    title: 经传注疏定位与归属审计
+    importance: critical
+    importance_rationale: 命中 ZY-T01/T02/T07/T09；错误分层会污染全部引文和解释。
+    one_liner: 每段先定位为经、传、注、疏或现代层，证据不足就标 unknown。
+    intents: [查询卦爻原文及出处, 区分经传注疏, 核对一句话是否真出自易经]
+    keywords: [周易原文, 易经原文, 经传注疏, provenance, attribution]
+    also_read: [commentary-conflict-audit, layered-interpretation]
+    card: cards/source-layer-audit.md
+    frontmatter:
+      description: >-
+        当用户要核对《周易》某句属于卦爻辞、彖象文言、王韩注还是孔疏，或问“这真是易经原文吗”时使用。普通起卦不单独触发。Triggers: 周易原文/经传注疏/王弼/孔颖达/provenance。
+      tags: [provenance, classics]
+    source_evidence:
+      - { source_id: ZY-VC-01, version_id: wikisource-20260916, location: zhouyi L192-L3854; zhengyi L1-L7270 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 由经典来源入口统一服务。 }
+
+  - capability_id: cap.zhouyi-classics.layered-interpretation
+    revision: 1
+    status: active
+    slug: layered-interpretation
+    title: 全卦—相关爻—注疏分层解释
+    importance: critical
+    importance_rationale: 命中 ZY-T01/T02/T06/T08；是经典辅助解释的主流程。
+    one_liner: 先用彖象确定全卦语境，再读相关爻辞与注疏条件。
+    intents: [解释某一卦或某一爻, 用彖象文言辅助理解卦象]
+    keywords: [卦辞, 爻辞, 彖, 象, 文言, layered interpretation]
+    also_read: [source-layer-audit, line-relation-ledger, judgment-condition-parser]
+    card: cards/layered-interpretation.md
+    frontmatter:
+      description: >-
+        当用户已有具体卦和爻位，要求结合卦辞、彖、象、文言及注疏解释时使用。必须先全卦后相关爻；不负责起卦或纳甲。Triggers: 解卦/解释某爻/彖曰/象曰/hexagram interpretation。
+      tags: [interpretation, hexagram]
+    source_evidence:
+      - { source_id: ZY-VC-02, version_id: wikisource-20260916, location: zhouyi L192-L3520; zhengyi L6420-L6430 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 经典入口主解释链。 }
+
+  - capability_id: cap.zhouyi-classics.line-relation-ledger
+    revision: 1
+    status: active
+    slug: line-relation-ledger
+    title: 时位中正应比结构账本
+    importance: high
+    importance_rationale: 命中 ZY-T03/T06/T09；避免把单个位置标签机械当吉凶。
+    one_liner: 把时、位、中正、应比逐项列证据和例外，不做加分投票。
+    intents: [分析爻位为何吉凶, 检查中正应比和卦时]
+    keywords: [时位, 中正, 应比, 三才, line position]
+    also_read: [layered-interpretation, judgment-condition-parser]
+    card: cards/line-relation-ledger.md
+    frontmatter:
+      description: >-
+        当用户问某爻为何得位仍凶、失位为何无咎，或要分析时、位、中正、应、比时使用。输出结构账本和例外，不机械计分。Triggers: 得位/失位/中正/相应/相比/line position。
+      tags: [line-position, reasoning]
+    source_evidence:
+      - { source_id: ZY-VC-03, version_id: wikisource-20260916, location: zhouyi L3647-L3652; zhengyi L154-L158 L6889-L6989 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: true, independent_eval: true }, notes: 依赖具体卦爻。 }
+
+  - capability_id: cap.zhouyi-classics.changing-hexagram-bridge
+    revision: 1
+    status: active
+    slug: changing-hexagram-bridge
+    title: 本卦动爻之卦经典桥接
+    importance: critical
+    importance_rationale: 命中 ZY-T01/T02/T06/T08/T09；直接服务现有六爻流程。
+    one_liner: 本卦给当前语境，动爻给变化条件，之卦给后续方向但不覆盖前两者。
+    intents: [用易经辅助六爻结果, 解释本卦动爻变卦]
+    keywords: [本卦, 动爻, 之卦, 变卦, 六爻辅助, changing hexagram]
+    also_read: [layered-interpretation, single-cast-discipline, high-risk-stop]
+    card: cards/changing-hexagram-bridge.md
+    frontmatter:
+      description: >-
+        当外部六爻引擎已经给出本卦、动爻和之卦，用户要用《周易》经传注疏辅助解释时使用。只做经典桥接，不重算纳甲、用神或旺衰。Triggers: 本卦动爻之卦/变卦/易经辅助六爻。
+      tags: [bridge, liuyao]
+    source_evidence:
+      - { source_id: ZY-VC-04, version_id: wikisource-20260916, location: zhouyi L3532-L3535 L3595 L3644-L3654 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: true, independent_eval: true }, notes: 依赖外部起卦结果。 }
+
+  - capability_id: cap.zhouyi-classics.judgment-condition-parser
+    revision: 1
+    status: active
+    slug: judgment-condition-parser
+    title: 吉凶悔吝无咎条件解析
+    importance: high
+    importance_rationale: 命中 ZY-T01/T03/T06/T08；防止二元化和把无咎误作大吉。
+    one_liner: 解析判断等级、成立条件和补过动作，不把传统词换成概率。
+    intents: [解释吉凶悔吝无咎, 判断爻辞中的条件]
+    keywords: [吉凶, 悔吝, 无咎, 元亨利贞, judgment]
+    also_read: [layered-interpretation, line-relation-ledger]
+    card: cards/judgment-condition-parser.md
+    frontmatter:
+      description: >-
+        当用户不明白爻辞中的吉、凶、悔、吝、无咎或条件句时使用。输出传统等级、条件与补过路径；不转换为成功概率。Triggers: 无咎是什么意思/悔吝/吉凶/conditional judgment。
+      tags: [judgment, conditions]
+    source_evidence:
+      - { source_id: ZY-VC-05, version_id: wikisource-20260916, location: zhouyi L3532-L3535; zhengyi L5759-L5809 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: false, independent_reuse: true, independent_eval: true }, notes: 解释链内部步骤。 }
+
+  - capability_id: cap.zhouyi-classics.symbol-boundary
+    revision: 1
+    status: active
+    slug: symbol-boundary
+    title: 八卦取象与实象假象限制
+    importance: high
+    importance_rationale: 命中 ZY-T02/T04/T07/T09；保留查象能力并阻止字面诊断。
+    one_liner: 返回有限来源映射，并明确哪些只是类比、不能作现实指认。
+    intents: [查询八卦物象, 判断取象是否过度, 区分实象假象]
+    keywords: [乾坤坎离, 说卦, 取象, 实象, 假象, trigram symbols]
+    also_read: [source-layer-audit, high-risk-stop]
+    card: cards/symbol-boundary.md
+    frontmatter:
+      description: >-
+        当用户查询乾坤坎离等八卦的方位、身体、动物、家庭或卦德，或需要检查是否无限取象时使用。不得据“坎为耳”等映射诊断疾病或锁定人物。Triggers: 说卦/八卦取象/坎为水/trigram symbolism。
+      tags: [symbols, boundary]
+    source_evidence:
+      - { source_id: ZY-VC-06, version_id: wikisource-20260916, location: zhouyi L3663-L3744; zhengyi L6999-L7222 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 与经典查询入口合并。 }
+
+  - capability_id: cap.zhouyi-classics.commentary-conflict-audit
+    revision: 1
+    status: active
+    slug: commentary-conflict-audit
+    title: 注疏异说与版本冲突审计
+    importance: high
+    importance_rationale: 命中 ZY-T01/T05/T07/T09；防止重复页和学派偏好伪装成共识。
+    one_liner: 并列各说、异文和裁断理由，证据不足时保留未决。
+    intents: [比较王弼孔颖达等解释, 核对周易版本异文]
+    keywords: [王弼, 韩康伯, 孔颖达, 异说, 异文, commentary conflict]
+    also_read: [source-layer-audit, layered-interpretation]
+    card: cards/commentary-conflict-audit.md
+    frontmatter:
+      description: >-
+        当用户比较王弼、韩康伯、孔颖达或其他异说，或发现《小象》错录、重复“随”页和版本冲突时使用。并列证据和取舍，不制造唯一古义。Triggers: 注家分歧/版本不同/异文/王弼怎么说/commentary audit。
+      tags: [commentary, textual-criticism]
+    source_evidence:
+      - { source_id: ZY-VC-07, version_id: wikisource-20260916, location: zhengyi L1-L129 L6105; source manifests }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 来源入口内部审计。 }
+
+  - capability_id: cap.zhouyi-classics.line-value-encoding
+    revision: 1
+    status: active
+    slug: line-value-encoding
+    title: 六七八九爻值编码
+    importance: high
+    importance_rationale: 命中 ZY-T03/T08；为经典筮法和外部起卦结果提供可机器核验编码。
+    one_liner: 6老阴动、7少阳静、8少阴静、9老阳动，六项必须自下而上。
+    intents: [把6789换成阴阳动静, 核对六个爻值]
+    keywords: [6 7 8 9, 老阴, 老阳, 少阴, 少阳, line values]
+    also_read: [changing-hexagram-bridge, single-cast-discipline]
+    card: cards/line-value-encoding.md
+    frontmatter:
+      description: >-
+        当用户提供六个6/7/8/9爻值，要求转换为阴阳、动爻和变后结构时使用。只做确定性编码，不补缺项、不生成现代随机概率或纳甲。Triggers: 6789/老阴老阳/六次爻值/moving lines。
+      tags: [encoding, calculation]
+    source_evidence:
+      - { source_id: ZY-VC-08, version_id: wikisource-20260916, location: zhengyi L150 L6135-L6154 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 避免与主起卦入口竞争。 }
+
+  - capability_id: cap.zhouyi-classics.single-cast-discipline
+    revision: 1
+    status: active
+    slug: single-cast-discipline
+    title: 首卦承诺与重复起卦审计
+    importance: critical
+    importance_rationale: 命中 ZY-T01/T08/T09；减少挑选满意答案和确认偏误。
+    one_liner: 同一主体、问题和期限无实质变化时保留首卦，不重复随机。
+    intents: [判断能否重新起卦, 审计同一问题重复占问]
+    keywords: [初筮告, 再三渎, 重起一卦, recast, repeat casting]
+    also_read: [changing-hexagram-bridge, high-risk-stop]
+    card: cards/single-cast-discipline.md
+    frontmatter:
+      description: >-
+        当用户因为结果不满意想对同一问题重起、换塔罗或继续抽到满意为止时使用。无实质新事实就保留首卦；有新事实则明确新问题。Triggers: 再算一次/重新起卦/换个方法/初筮告。
+      tags: [casting, audit]
+    source_evidence:
+      - { source_id: ZY-VC-09, version_id: wikisource-20260916, location: zhouyi L355-L364 }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 内嵌所有占问入口。 }
+
+  - capability_id: cap.zhouyi-classics.high-risk-stop
+    revision: 1
+    status: active
+    slug: high-risk-stop
+    title: 高风险停止与现实核验
+    importance: critical
+    importance_rationale: 命中 ZY-T04/T07/T08/T09；防止传统类比替代专业处置。
+    one_liner: 高风险请求停止占断，转向现实证据、专业人员或紧急服务。
+    intents: [识别不应继续用易经判断的高风险问题, 隔离文化解释与现实行动]
+    keywords: [医疗, 法律, 投资, 安全, 生育, safety stop]
+    also_read: [symbol-boundary, changing-hexagram-bridge]
+    card: cards/high-risk-stop.md
+    frontmatter:
+      description: >-
+        当易经或六爻请求涉及医疗、法律、投资、犯罪、生育、死亡、自伤暴力或紧急安全行动时必须使用。停止占断结论，转向事实核验和合格专业帮助。Triggers: 要不要停药/会不会死/是否诈骗/能否胜诉/买卖投资。
+      tags: [safety, stop-condition]
+    source_evidence:
+      - { source_id: ZY-VC-10, version_id: project-boundary-20260917, location: BOOK_OVERVIEW modern application boundary }
+    promotion: { destination: router, gate: { independent_intent: false, independent_contract: true, independent_run: true, independent_reuse: true, independent_eval: true }, notes: 必须内嵌，不形成高风险占断入口。 }

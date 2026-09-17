@@ -1,0 +1,15 @@
+{
+  "bundle_id": "bundle.zhouyi-classics",
+  "destinations": {
+    "cap.zhouyi-classics.source-layer-audit": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.layered-interpretation": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.line-relation-ledger": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.changing-hexagram-bridge": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.judgment-condition-parser": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.symbol-boundary": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.commentary-conflict-audit": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.line-value-encoding": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.single-cast-discipline": {"served_by": "zhouyi-classics"},
+    "cap.zhouyi-classics.high-risk-stop": {"served_by": "zhouyi-classics"}
+  }
+}

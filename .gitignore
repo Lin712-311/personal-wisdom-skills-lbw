@@ -17,3 +17,7 @@ books/*/.cangjie/cache/
 books/*/.cangjie/chunks/
 books/*/.cangjie/index/
 books/*/.cangjie/normalized/
+books/*/.cangjie/snapshots/
+books/*/.cangjie/*/chunks/
+books/*/.cangjie/*/index/
+books/*/.cangjie/*/normalized/

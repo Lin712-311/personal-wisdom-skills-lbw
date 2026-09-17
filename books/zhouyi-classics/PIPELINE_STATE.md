@@ -2,8 +2,8 @@
 
 ## 当前状态
 
-- **当前阶段**：Stage 1.5 — 三重验证已完成，等待用户轻确认
-- **执行状态**：150 个 source candidate 已完成来源、可执行性与任务增益审计；尚未进入 Capability Bundle 编译
+- **当前阶段**：Stage 5 — 已完成
+- **执行状态**：用户已确认推荐的一入口方案；产物已蒸馏、盲测、编译、验证并安装
 - **目标形态**：一个 `zhouyi-classics` 来源 companion，作为现有六爻 Skill 的经传/义理辅助层，不新建相互抢触发的“周易”和“易经”两个入口
 - **最近更新**：2026-09-17（Australia/Sydney）
 
@@ -33,9 +33,11 @@
 - [x] 明确与纳甲六爻的接口和禁止倒灌项
 - [x] 向用户展示并取得 Stage 0 确认（2026-09-17 01:22:34 +10:00，用户回复“jixu”）
 
-## 下一步门禁
+## 阶段门与用户确认
 
-请用户确认 Stage 1.5 的四类分流：10 个 verified canonical、18 个 reference canonical、6 个 needs-review，以及 source-level 去重映射。确认后进入 Stage 1.6；推荐仍为 1 个 `zhouyi-classics` 来源入口，不拆成多个抢触发的 Skill。
+- Stage 0：用户于 2026-09-17 回复“jixu”，确认继续整书提炼。
+- Stage 1.5：用户于 2026-09-17 回复“易经 你也帮我提炼进去先”，确认采用推荐的单一 `zhouyi-classics` 来源入口并继续编译安装。
+- 当前没有待确认门禁。后续更新不得把 reference / needs-review 静默提升为 active，也不得把传统占筮包装成科学预测。
 
 ## Stage 1 / 1.5 数量
 
@@ -46,3 +48,28 @@
 - glossary：30
 - source candidates 合计：150
 - 最终 canonical：verified 10 / reference 18 / needs_review 6
+
+## Stage 2–3 能力构建
+
+- Capability Bundle：`.cangjie/capabilities/verified.yaml`，10 个 active router 能力。
+- RIA++ 能力卡：`.cangjie/capabilities/cards/` 共 10 张，覆盖来源分层、全卦与爻层解释、时位应比、变卦桥接、判断辞、取象边界、注疏冲突、6789 编码、同题不重占和高风险判停。
+- Zettelkasten：`also_read` 和卡片关系已回填；30 个术语形成 `GLOSSARY.md` 与随包 glossary。
+- `DIGEST.md`：5,302 字符，覆盖方法、反例、材料局限及全部能力链接。
+
+## Stage 4 压力测试
+
+- 三名独立盲测代理先完成 24 条路由提示与第一批 10 条输出；第四名独立代理完成第二批 10 条输出。
+- 最终路由：precision 1.000、recall 1.000、F1 1.000；兄弟混淆 0/2。
+- 实际输出：20/20 用例通过，42/42 机械断言通过。
+- 首轮发现“纳甲”边界被转给 `traditional-divination-skill`；修订后明确三层职责并由独立代理复测为 `sibling:zengshan-buyi`。
+- 原始盲测与评分记录：`.cangjie/runs/stage4/`。
+
+## Stage 5 编译与安装
+
+- 输出策略：`single`；共 1 个可发现 Skill、10 个内部能力、16 个文件。
+- 最终构建 run：`run-20260917-142025-6640be`。
+- 编译目录：`books/zhouyi-classics/dist`。
+- 安装目录：`D:\Codex\skills\zhouyi-classics`。
+- 安装校验：0 errors、0 warnings；编译与安装均为 16 个文件，逐文件 SHA-256 差异为 0。
+- `SKILL.md` SHA-256：`C520EF1F2AE2CD209F52C985DD04447629356118B6A061CCD60DA364D705852C`。
+- 新开对话后技能发现会重新扫描，届时可自动路由；本线程的静态技能列表可能直到下一轮刷新才显示新安装项。

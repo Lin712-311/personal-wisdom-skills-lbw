@@ -25,3 +25,13 @@
 - `ZY-T01`–`ZY-T09` 全部具有“原文 → candidate → decision → 去向”链路。
 - 只验证了经典查询、解释流程、结构账本、有限爻值编码和安全审计；没有验证占筮预测准确率。
 - 版本、作者层、完整蓍法、解释权重和精确时间仍是显式缺口，未被现代常识静默补齐。
+
+## Stage 2–5 交付审计
+
+- Capability Bundle：`.cangjie/capabilities/verified.yaml`，共 10 个 active router 能力；全部保留在一个 `zhouyi-classics` 入口内，未拆成相互抢触发的“周易”和“易经”。
+- RIA++ 卡：`.cangjie/capabilities/cards/` 共 10 张，均含原文依据、方法骨架、正例、触发场景、执行步骤、边界与关联能力。
+- 术语与摘要：`GLOSSARY.md` 收录 30 个术语；`DIGEST.md` 为 5,302 字符并链接全部核心能力卡。
+- Stage 4 路由盲测：24 条，最终 precision 1.000、recall 1.000、F1 1.000，兄弟入口混淆 0/2。
+- Stage 4 输出盲测：20/20 用例通过，42/42 机械断言通过。测试只证明路由与输出契约，不证明占筮预测效力。
+- 盲测修订：首次把纳甲边界路由到了通用起卦入口；现已明确改为“起卦 → `traditional-divination-skill`，纳甲规则 → `zengshan-buyi`，经传注疏 → `zhouyi-classics`”，复测通过。
+- Stage 5：编译为 single 形态，1 个 Skill、10 个内部能力、16 个文件；安装到 `D:\Codex\skills\zhouyi-classics`。
